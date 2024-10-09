@@ -1,0 +1,118 @@
+{
+    "settings": {
+        "cortex-debug.gdbPath": "@CMAKE_GDB@",
+        "cortex-debug.objdumpPath": "@CMAKE_OBJDUMP@",
+        "cortex-debug.openocdPath": "@OPENOCD@",
+        "zephyr.ZEPHYR_HAL_INFINEON_MODULE_DIR": "@ZEPHYR_HAL_INFINEON_MODULE_DIR@"
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-vscode.vscode-serial-monitor",
+            "marus25.cortex-debug",
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Erase Flash",
+                "type": "shell",
+                "command": "${config:zephyr.PYTHON_EXECUTABLE}",
+                "args": [
+                    "-m",
+                    "west",
+                    "flash",
+                    "--cmd-load",
+                    "\"flash erase_sector 0 0 last;#\"",
+                    "--build-dir",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                ],
+                "options": {
+                    "cwd": "${config:zephyr.ENV_PWD}",
+                    "env": {
+                        "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
+                        "PATH": "${config:zephyr.ENV_PATH}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                    }
+                },
+                "problemMatcher": []
+            }
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Launch CYW20829 CM33 (KitProg3_MiniProg4)",
+                "cwd": "${config:zephyr.APPLICATION_SOURCE_DIR}",
+                "executable": "${config:zephyr.ZEPHYR_BINARY_DIR}/${config:zephyr.KERNEL_ELF_NAME}",
+                "request": "launch",
+                "type": "cortex-debug",
+                "runToEntryPoint": "main",
+                "servertype": "openocd",
+                "preLaunchTask": "West Flash",
+                "rtos": "auto",
+                "searchDir": [
+                    "${config:zephyr.BOARD_DIR}/support/",
+                ],
+                "openOCDPreConfigLaunchCommands": [
+                    "set QSPI_FLASHLOADER ${config:zephyr.ZEPHYR_HAL_INFINEON_MODULE_DIR}/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM"
+                ],
+                "openOCDLaunchCommands": [
+                    "${TARGET}.cm33 configure -rtos auto -rtos-wipe-on-reset-halt 1",
+                    "gdb_breakpoint_override hard"
+                ],
+                "configFiles": [
+                    "${config:zephyr.BOARD_DIR}/support/openocd.cfg"
+                ],
+                "overrideLaunchCommands": [
+                    "set mem inaccessible-by-default off",
+                    "-enable-pretty-printing",
+                    "set remotetimeout 15",
+                    "monitor reset init"
+                ],
+                "overrideRestartCommands": [
+                    "starti"
+                ],
+                "svdFile": "${config:zephyr.ZEPHYR_HAL_INFINEON_MODULE_DIR}/mtb-pdl-cat1/devices/COMPONENT_CAT1B/svd/cyw20829.svd",
+                "breakAfterReset": true,
+                "showDevDebugOutput": "none"
+            },
+            {
+                "name": "Attach CYW20829 CM33 (KitProg3_MiniProg4)",
+                "cwd": "${config:zephyr.APPLICATION_SOURCE_DIR}",
+                "executable": "${config:zephyr.ZEPHYR_BINARY_DIR}/${config:zephyr.KERNEL_ELF_NAME}",
+                "request": "attach",
+                "type": "cortex-debug",
+                "runToEntryPoint": "main",
+                "servertype": "openocd",
+                "rtos": "auto",
+                "searchDir": [
+                    "${config:zephyr.BOARD_DIR}/support/",
+                ],
+                "openOCDPreConfigLaunchCommands": [
+                    "set QSPI_FLASHLOADER ${config:zephyr.ZEPHYR_HAL_INFINEON_MODULE_DIR}/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM"
+                ],
+                "openOCDLaunchCommands": [
+                    "${TARGET}.cm33 configure -rtos auto -rtos-wipe-on-reset-halt 1",
+                    "gdb_breakpoint_override hard"
+                ],
+                "configFiles": [
+                    "${config:zephyr.BOARD_DIR}/support/openocd.cfg"
+                ],
+                "overrideAttachCommands": [
+                    "set mem inaccessible-by-default off",
+                    "-enable-pretty-printing",
+                    "set remotetimeout 15",
+                    "monitor halt"
+                ],
+                "overrideRestartCommands": [
+                    "starti"
+                ],
+                "svdFile": "${config:zephyr.ZEPHYR_HAL_INFINEON_MODULE_DIR}/mtb-pdl-cat1/devices/COMPONENT_CAT1B/svd/cyw20829.svd",
+                "breakAfterReset": true,
+                "showDevDebugOutput": "none"
+            }
+        ]
+    }
+}

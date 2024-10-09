@@ -1,0 +1,43 @@
+# Copyright (C) 2024 Infineon Technologies
+# SPDX-License-Identifier: Apache-2.0
+
+# VS Code workspace generation options
+
+config VSCODE_WORKSPACE
+	bool "Generate Visual Studio Code workspace"
+	default n
+	help
+	  Generate Visual Studio Code workspace. If a workspace already exists, the
+	  existing workspace is modified in place.
+
+config VSCODE_WORKSPACE_TEMPLATE
+	bool "Include workspace template"
+	default y
+	depends on VSCODE_WORKSPACE
+	help
+	  Include elements from generic, as wells as any board specific, workspace
+	  templates when generating workspace.
+
+config VSCODE_WORKSPACE_MULTIROOT
+	bool "Generate multi-root workspace file"
+	default n
+	depends on VSCODE_WORKSPACE
+	help
+	  Generate multi-root workspace file. The default is 'n', which will create
+	  a single-root workspace in a .vscode subfolder.
+
+config VSCODE_WORKSPACE_LOCATION
+	string "Location of workspace"
+	default "."
+	depends on VSCODE_WORKSPACE
+	help
+	  Path to the directory in which the .vscode folder or the multi-root
+	  workspace file resides. If not specified, the workspace will be created
+	  in the current working directory.
+
+config VSCODE_WORKSPACE_FILENAME
+	string "File name of workspace file"
+	default "untitled.code-workspace"
+	depends on VSCODE_WORKSPACE && VSCODE_WORKSPACE_MULTIROOT
+	help
+	  File name of the multi-root workspace file.

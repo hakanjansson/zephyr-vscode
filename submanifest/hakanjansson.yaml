@@ -1,0 +1,9 @@
+# Copyright (C) 2024 Infineon Technologies
+# SPDX-License-Identifier: Apache-2.0
+
+manifest:
+  projects:
+    - name: vscode
+      url: https://github.com/hakanjansson/zephyr-vscode.git
+      revision: main
+      path: modules/hakanjansson/vscode

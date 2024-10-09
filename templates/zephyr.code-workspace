@@ -1,0 +1,100 @@
+{
+    "folders": [
+        {
+            "name": "Application",
+            "path": "@APPLICATION_SOURCE_DIR@"
+        },
+        {
+            "name": "Zephyr",
+            "path": "@ZEPHYR_BASE@"
+        },
+        {
+            "name": "West top",
+            "path": "@WEST_TOPDIR@"
+        }
+    ],
+    "extensions": {
+        "recommendations": [
+            "ms-vscode.cpptools",
+        ]
+    },
+    "settings": {
+        "C_Cpp.default.compilerPath": "@CMAKE_C_COMPILER@",
+        "C_Cpp.default.compileCommands": "@APPLICATION_BINARY_DIR@/compile_commands.json",
+        "python.defaultInterpreterPath": "@PYTHON_EXECUTABLE@",
+        "cmake.configureOnOpen": false,
+        "[c]": {
+            "editor.detectIndentation": false,
+            "editor.insertSpaces": false,
+            "editor.tabSize": 8
+        },
+        "zephyr.BOARD": "@BOARD@",
+        "zephyr.BOARD_DIR": "@BOARD_DIR@",
+        "zephyr.APPLICATION_SOURCE_DIR": "@APPLICATION_SOURCE_DIR@",
+        "zephyr.APPLICATION_BINARY_DIR": "@APPLICATION_BINARY_DIR@",
+        "zephyr.PYTHON_EXECUTABLE": "@PYTHON_EXECUTABLE@",
+        "zephyr.ZEPHYR_BINARY_DIR": "@ZEPHYR_BINARY_DIR@",
+        "zephyr.KERNEL_ELF_NAME": "@KERNEL_ELF_NAME@",
+        "zephyr.ENV_PATH": "@ENV_PATH@",
+        "zephyr.ENV_PWD": "@ENV_PWD@",
+        "zephyr.ENV_VIRTUAL_ENV": "@ENV_VIRTUAL_ENV@",
+        "zephyr.ENV_PYTHONHOME": "@ENV_PYTHONHOME@",
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "West Build",
+                "type": "shell",
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "command": "${config:zephyr.PYTHON_EXECUTABLE}",
+                "args": [
+                    "-m",
+                    "west",
+                    "build",
+                    "--build-dir",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                ],
+                "options": {
+                    "cwd": "${config:zephyr.ENV_PWD}",
+                    "env": {
+                        "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
+                        "PATH": "${config:zephyr.ENV_PATH}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                    }
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            },
+            {
+                "label": "West Flash",
+                "type": "shell",
+                "command": "${config:zephyr.PYTHON_EXECUTABLE}",
+                "args": [
+                    "-m",
+                    "west",
+                    "flash",
+                    "--build-dir",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                ],
+                "options": {
+                    "cwd": "${config:zephyr.ENV_PWD}",
+                    "env": {
+                        "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
+                        "PATH": "${config:zephyr.ENV_PATH}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                    }
+                },
+                "problemMatcher": []
+            },
+        ],
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": []
+    }
+}
