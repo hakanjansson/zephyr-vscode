@@ -47,7 +47,9 @@ This module can be used to generate a Visual Studio Code (VS Code) workspace to 
 
 #. Build Blinky sample from VS Code by selecting ``Terminal->Run Task...`` and then selecting the task ``West Build``. (Alternatively use the keyboard shortcut ``CTRL+SHIFT+B``.)
 
-#. Flash the Blinky sample from VS Code by selecting ``Terminal->Run Task...`` and then selecting the task ``West Flash``
+#. Flash the Blinky sample from VS Code by selecting ``Terminal->Run Task...`` and then selecting the task ``West Flash``.
+
+#. Get started with `debugging`_.
 
 Description
 ************
@@ -134,3 +136,6 @@ Inspired by the talk `Zephyr & Visual Studio Code: How to Develop Zephyr Apps wi
 
 .. _eoss_talk:
    https://youtu.be/IKNHPmG-Qxo
+
+.. _debugging:
+   debugging.rst

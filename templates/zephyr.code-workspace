@@ -16,11 +16,13 @@
     "extensions": {
         "recommendations": [
             "ms-vscode.cpptools",
+            "marus25.cortex-debug",
         ]
     },
     "settings": {
         "C_Cpp.default.compilerPath": "@CMAKE_C_COMPILER@",
         "C_Cpp.default.compileCommands": "@APPLICATION_BINARY_DIR@/compile_commands.json",
+        "cortex-debug.gdbPath": "@CMAKE_GDB@",
         "python.defaultInterpreterPath": "@PYTHON_EXECUTABLE@",
         "cmake.configureOnOpen": false,
         "[c]": {
@@ -91,10 +93,64 @@
                 },
                 "problemMatcher": []
             },
+            {
+                "label": "West Debugserver",
+                "type": "shell",
+                "isBackground": true,
+                "command": "${config:zephyr.PYTHON_EXECUTABLE}",
+                "args": [
+                    "-m",
+                    "west",
+                    "debugserver",
+                    "--build-dir",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                ],
+                "options": {
+                    "cwd": "${config:zephyr.ENV_PWD}",
+                    "env": {
+                        "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
+                        "PATH": "${config:zephyr.ENV_PATH}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                    }
+                },
+                "problemMatcher": [
+                    {
+                        "pattern": [
+                            {
+                                "regexp": ".",
+                                "file": 1,
+                                "location": 2,
+                                "message": 3,
+                            }
+                        ],
+                        "background": {
+                            "activeOnStart": true,
+                            "beginsPattern": ".",
+                            "endsPattern": ".",
+                        },
+                    },
+                ],
+            },
         ],
     },
     "launch": {
         "version": "0.2.0",
-        "configurations": []
-    }
+        "configurations": [
+            {
+                "name": "Launch Cortex Debug",
+                "cwd" : "${config:zephyr.APPLICATION_SOURCE_DIR}",
+                "executable" : "${config:zephyr.ZEPHYR_BINARY_DIR}/${config:zephyr.KERNEL_ELF_NAME}",
+                "request": "launch",
+                "type": "cortex-debug",
+                "runToEntryPoint": "main",
+                "servertype": "external",
+                "gdbPath": "${config:cortex-debug.gdbPath}",
+                "gdbTarget": "localhost:3333",
+                "preLaunchTask": "West Debugserver",
+                "rtos": "Zephyr",
+                "postLaunchCommands": [ "monitor [target current] configure -event gdb-detach {shutdown}" ],
+                "showDevDebugOutput": "none",
+            },
+        ],
+    },
 }
