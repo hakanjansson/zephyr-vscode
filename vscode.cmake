@@ -217,7 +217,7 @@ function(vscode_workspace_add_json_file filename)
   file(READ "${filename}" str)
   # Load local variables before doing variable replacement
   _vscode_workspace_load_env_variables()
-  string(CONFIGURE "${str}" str @ONLY)
+  string(CONFIGURE "${str}" str @ONLY ESCAPE_QUOTES)
   vscode_workspace_add_json_string("${str}")
 endfunction()
 
