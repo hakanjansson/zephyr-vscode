@@ -16,7 +16,7 @@
     "extensions": {
         "recommendations": [
             "ms-vscode.cpptools",
-            "marus25.cortex-debug",
+            "marus25.cortex-debug"
         ]
     },
     "settings": {
@@ -40,7 +40,7 @@
         "zephyr.ENV_PATH": "@ENV_PATH@",
         "zephyr.ENV_PWD": "@ENV_PWD@",
         "zephyr.ENV_VIRTUAL_ENV": "@ENV_VIRTUAL_ENV@",
-        "zephyr.ENV_PYTHONHOME": "@ENV_PYTHONHOME@",
+        "zephyr.ENV_PYTHONHOME": "@ENV_PYTHONHOME@"
     },
     "tasks": {
         "version": "2.0.0",
@@ -58,14 +58,14 @@
                     "west",
                     "build",
                     "--build-dir",
-                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}"
                 ],
                 "options": {
                     "cwd": "${config:zephyr.ENV_PWD}",
                     "env": {
                         "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
                         "PATH": "${config:zephyr.ENV_PATH}",
-                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}"
                     }
                 },
                 "problemMatcher": [
@@ -81,14 +81,14 @@
                     "west",
                     "flash",
                     "--build-dir",
-                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}"
                 ],
                 "options": {
                     "cwd": "${config:zephyr.ENV_PWD}",
                     "env": {
                         "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
                         "PATH": "${config:zephyr.ENV_PATH}",
-                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}"
                     }
                 },
                 "problemMatcher": []
@@ -103,14 +103,14 @@
                     "west",
                     "debugserver",
                     "--build-dir",
-                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}"
                 ],
                 "options": {
                     "cwd": "${config:zephyr.ENV_PWD}",
                     "env": {
                         "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
                         "PATH": "${config:zephyr.ENV_PATH}",
-                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}"
                     }
                 },
                 "problemMatcher": [
@@ -120,18 +120,18 @@
                                 "regexp": ".",
                                 "file": 1,
                                 "location": 2,
-                                "message": 3,
+                                "message": 3
                             }
                         ],
                         "background": {
                             "activeOnStart": true,
                             "beginsPattern": ".",
-                            "endsPattern": ".",
-                        },
-                    },
-                ],
-            },
-        ],
+                            "endsPattern": "."
+                        }
+                    }
+                ]
+            }
+        ]
     },
     "launch": {
         "version": "0.2.0",
@@ -149,8 +149,8 @@
                 "preLaunchTask": "West Debugserver",
                 "rtos": "Zephyr",
                 "postLaunchCommands": [ "monitor [target current] configure -event gdb-detach {shutdown}" ],
-                "showDevDebugOutput": "none",
-            },
-        ],
-    },
+                "showDevDebugOutput": "none"
+            }
+        ]
+    }
 }

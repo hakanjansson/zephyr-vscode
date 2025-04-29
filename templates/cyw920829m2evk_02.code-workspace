@@ -8,7 +8,7 @@
     "extensions": {
         "recommendations": [
             "ms-vscode.vscode-serial-monitor",
-            "marus25.cortex-debug",
+            "marus25.cortex-debug"
         ]
     },
     "tasks": {
@@ -25,14 +25,14 @@
                     "--cmd-load",
                     "\"flash erase_sector 0 0 last;#\"",
                     "--build-dir",
-                    "${config:zephyr.APPLICATION_BINARY_DIR}",
+                    "${config:zephyr.APPLICATION_BINARY_DIR}"
                 ],
                 "options": {
                     "cwd": "${config:zephyr.ENV_PWD}",
                     "env": {
                         "VIRTUAL_ENV": "${config:zephyr.ENV_VIRTUAL_ENV}",
                         "PATH": "${config:zephyr.ENV_PATH}",
-                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}",
+                        "PYTHONHOME": "${config:zephyr.ENV_PYTHONHOME}"
                     }
                 },
                 "problemMatcher": []
@@ -53,7 +53,7 @@
                 "preLaunchTask": "West Flash",
                 "rtos": "auto",
                 "searchDir": [
-                    "${config:zephyr.BOARD_DIR}/support/",
+                    "${config:zephyr.BOARD_DIR}/support/"
                 ],
                 "openOCDPreConfigLaunchCommands": [
                     "set QSPI_FLASHLOADER ${config:zephyr.ZEPHYR_HAL_INFINEON_MODULE_DIR}/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM"
@@ -88,7 +88,7 @@
                 "servertype": "openocd",
                 "rtos": "auto",
                 "searchDir": [
-                    "${config:zephyr.BOARD_DIR}/support/",
+                    "${config:zephyr.BOARD_DIR}/support/"
                 ],
                 "openOCDPreConfigLaunchCommands": [
                     "set QSPI_FLASHLOADER ${config:zephyr.ZEPHYR_HAL_INFINEON_MODULE_DIR}/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM"

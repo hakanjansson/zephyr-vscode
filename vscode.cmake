@@ -6,6 +6,8 @@
 
 include_guard(GLOBAL)
 
+cmake_minimum_required(VERSION 3.20.5)
+
 # Load certain environment variables for use in template variable replacement
 function(_vscode_workspace_load_env_variables)
   set(ENV_PWD "${VSCODE_WORKSPACE_CWD}")
