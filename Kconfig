@@ -21,7 +21,7 @@ config VSCODE_WORKSPACE_TEMPLATE
 config VSCODE_WORKSPACE_MULTIROOT
 	bool "Generate multi-root workspace file"
 	default n
-	depends on VSCODE_WORKSPACE
+	imply VSCODE_WORKSPACE
 	help
 	  Generate multi-root workspace file. The default is 'n', which will create
 	  a single-root workspace in a .vscode subfolder.
@@ -37,7 +37,7 @@ config VSCODE_WORKSPACE_LOCATION
 
 config VSCODE_WORKSPACE_FILENAME
 	string "File name of workspace file"
-	default "untitled.code-workspace"
+	default "$(shell, $(PYTHON_EXECUTABLE) $(ZEPHYR_VSCODE_MODULE_DIR)/scripts/workspace_name.py)"
 	depends on VSCODE_WORKSPACE && VSCODE_WORKSPACE_MULTIROOT
 	help
 	  File name of the multi-root workspace file.
